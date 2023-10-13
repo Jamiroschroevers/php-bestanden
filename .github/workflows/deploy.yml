@@ -31,7 +31,6 @@ jobs:
           # Configuratie voor GitHub Pages
           git config --global user.email "D287404@edu.curio.nl"
           git config --global user.name "Jamiroschroevers"
-          git checkout gh-pages  # Als de branche voor GitHub Pages anders is, pas dit dan aan
           mv -f $output_dir/* ./
           git add .
           git commit -m "Deployed PHP page"
