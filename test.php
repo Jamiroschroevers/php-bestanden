@@ -10,4 +10,5 @@ echo "test10";
 echo "test11";
 echo "blue";
 echo "geel";
+echo "test10"
 ?>
