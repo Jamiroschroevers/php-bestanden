@@ -1,18 +1,18 @@
-name: PHP Semicolon Check
+name: PHP Test Word Check
 on: [push]
 
 jobs:
-  php-semicolon-check:
+  php-test-word-check:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
-      - name: Check PHP files for missing semicolons
+      - name: Check PHP files for the word "test"
         run: |
           find . -name "*.php" -exec sh -c '
             for file do
-              if ! grep -q ";$" "$file"; then
-                echo "Missing semicolon at the end of a line in $file"
+              if grep -q "test" "$file"; then
+                echo "The word 'test' is found in $file"
                 exit 1
               fi
             done
