@@ -25,9 +25,6 @@ jobs:
           # Maak een map om de uitvoerbestanden in op te slaan
           mkdir -p $output_dir
 
-          # Kopieer PHP-bestanden naar de uitvoermap
-          cp -R test $output_dir
-
           # Configuratie voor GitHub Pages
           git config --global user.email "D287404@edu.curio.nl"
           git config --global user.name "Jamiroschroevers"
