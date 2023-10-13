@@ -31,4 +31,4 @@ jobs:
           mv -f $output_dir/* ./
           git add .
           git commit -m "Deployed PHP page"
-          git push origin gh-pages  # Als de branche voor GitHub Pages anders is, pas dit dan aan
+          git push origin main  # Als de branche voor GitHub Pages anders is, pas dit dan aan
