@@ -1,21 +1,19 @@
-name: Controleer puntkomma's achter zinnen
-
-on:
-  push:
-    branches:
-      - main
+name: PHP Semicolon Check
+on: [push]
 
 jobs:
-  check-semicolons:
+  php-semicolon-check:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Controleer code uit
-      uses: actions/checkout@v2
-
-    - name: Controleer puntkomma's
-      run: |
-        if grep -RnE '^[^}]+[^;]$' . ; then
-          echo "Fout: Geen puntkomma achter zin gevonden."
-          exit 1
-        fi
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Check PHP files for missing semicolons
+        run: |
+          find . -name "*.php" -exec sh -c '
+            for file do
+              if ! grep -q ";$" "$file"; then
+                echo "Missing semicolon at the end of a line in $file"
+                exit 1
+              fi
+            done
+          ' _ {} +
