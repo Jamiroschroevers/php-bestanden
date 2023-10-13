@@ -1,0 +1,34 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build application
+        run: npm run build  # Pas dit aan op basis van je specifieke build-commando
+
+      - name: Deploy to GitHub Pages
+        run: |
+          git config --global user.email "you@example.com"
+          git config --global user.name "Your Name"
+          git checkout gh-pages  # Als de branche voor GitHub Pages anders is, pas dit dan aan
+          mv -f ./dist/* ./
+          git add .
+          git commit -m "Deployed application"
+          git push origin gh-pages  # Als de branche voor GitHub Pages anders is, pas dit dan aan
