@@ -1,19 +1,38 @@
-name: PHP Test Word Check
-on: [push]
+name: Deploy PHP Page to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
 
 jobs:
-  php-test-word-check:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository code
+      - name: Checkout code
         uses: actions/checkout@v2
-      - name: Check PHP files for the word "test"
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.0
+
+      - name: Deploy to GitHub Pages
         run: |
-          find . -name "*.php" -exec sh -c '
-            for file do
-              if grep -q "test" "$file"; then
-                echo "The word 'test' is found in $file"
-                exit 1
-              fi
-            done
-          ' _ {} +
+          # Stel de uitvoermap in waarin de PHP-bestanden zich bevinden
+          output_dir="public"
+
+          # Maak een map om de uitvoerbestanden in op te slaan
+          mkdir -p $output_dir
+
+          # Kopieer PHP-bestanden naar de uitvoermap
+          cp -R . $output_dir
+
+          # Configuratie voor GitHub Pages
+          git config --global user.email "D287404@edu.curio.nl"
+          git config --global user.name "Jamiroschroevers"
+          git checkout gh-pages  # Als de branche voor GitHub Pages anders is, pas dit dan aan
+          mv -f $output_dir/* ./
+          git add .
+          git commit -m "Deployed PHP page"
+          git push origin gh-pages  # Als de branche voor GitHub Pages anders is, pas dit dan aan
