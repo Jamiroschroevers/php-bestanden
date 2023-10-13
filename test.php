@@ -1,5 +1,5 @@
 <?php
 echo "blue";
 echo "geel";
-echo "test1";
+echo "test2";
 ?>
