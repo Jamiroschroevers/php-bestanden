@@ -1,4 +1,4 @@
-name: PHP CodeSniffer
+name: Controleer puntkomma's achter zinnen
 
 on:
   push:
@@ -6,21 +6,16 @@ on:
       - main
 
 jobs:
-  phpcs:
+  check-semicolons:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Check out code
+    - name: Controleer code uit
       uses: actions/checkout@v2
 
-    - name: Set up PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '7.4'  # Kies de PHP-versie die je wilt gebruiken
-
-    - name: Install Composer dependencies
-      run: composer install
-
-    - name: Run PHP CodeSniffer
-      run: vendor/bin/phpcs
-
+    - name: Controleer puntkomma's
+      run: |
+        if grep -RnE '^[^}]+[^;]$' . ; then
+          echo "Fout: Geen puntkomma achter zin gevonden."
+          exit 1
+        fi
